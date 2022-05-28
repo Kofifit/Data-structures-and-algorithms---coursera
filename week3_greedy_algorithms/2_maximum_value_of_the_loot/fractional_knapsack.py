@@ -5,26 +5,25 @@ import numpy as np
 
 def get_optimal_value(capacity, weights, values):
     value = 0.
-    valuePerUnit = []
+    value_per_unit = []
 
     for i in range(0, len(weights)):
-        valuePerUnit.append(values[i]/weights[i])
+        value_per_unit.append(values[i]/weights[i])
 
     while capacity > 0:
+        max_value = max(value_per_unit)
+        max_index = value_per_unit.index(max_value)
 
-        maxIndex = 0
-        for i in range(1, len(weights)):
-            if valuePerUnit[i-1] < valuePerUnit[i]:
-                maxIndex = i
-
-        if weights[maxIndex] >= capacity:
-            value += valuePerUnit[maxIndex] * capacity
+        if weights[max_index] >= capacity:
+            value += value_per_unit[max_index] * capacity
             return value
         else:
-            value += valuePerUnit[maxIndex] * weights[maxIndex]
-            capacity -= weights[maxIndex]
+            value += values[max_index]
+            capacity -= weights[max_index]
+            del value_per_unit[max_index], weights[max_index], values[max_index]
 
-        del valuePerUnit[maxIndex], weights[maxIndex]
+        if not values
+            return value
 
 
 if __name__ == "__main__":
