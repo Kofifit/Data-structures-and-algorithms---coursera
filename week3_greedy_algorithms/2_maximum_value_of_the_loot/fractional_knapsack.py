@@ -1,29 +1,27 @@
 # Uses python3
 import sys
-import numpy as np
-
 
 def get_optimal_value(capacity, weights, values):
+    if capacity == 0 or not weights:
+        return 0
     value = 0.
     value_per_unit = []
 
-    for i in range(0, len(weights)):
-        value_per_unit.append(values[i]/weights[i])
+    for i, w in enumerate(weights):
+        v = values[i]
+        value_per_unit.append(v/w)
 
     while capacity > 0:
+
         max_value = max(value_per_unit)
         max_index = value_per_unit.index(max_value)
+        amount = min(capacity, weights[max_index])
+        value += amount * max_value
+        del value_per_unit[max_index], weights[max_index], values[max_index]
 
-        if weights[max_index] >= capacity:
-            value += value_per_unit[max_index] * capacity
+        if not values or capacity == 0:
             return value
-        else:
-            value += values[max_index]
-            capacity -= weights[max_index]
-            del value_per_unit[max_index], weights[max_index], values[max_index]
 
-        if not values
-            return value
 
 
 if __name__ == "__main__":
