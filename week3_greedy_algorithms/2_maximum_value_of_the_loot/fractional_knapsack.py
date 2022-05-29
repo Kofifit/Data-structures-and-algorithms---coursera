@@ -22,7 +22,7 @@ def get_optimal_value(capacity, weights, values):
             capacity -= weights[max_index]
             del value_per_unit[max_index], weights[max_index], values[max_index]
 
-        if not values
+        if not values:
             return value
 
 
