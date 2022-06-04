@@ -10,21 +10,29 @@ def optimal_points(segments):
         return segments[0].start
 
     points = []
-    end = segments[0].end
-    index = 0
 
-    for idx, s in enumerate(segments):
-        if s.end < end:
-            end = s.end
-            index = idx
-    points.append(s.end)
-    del segments[index]
+    while segments:
+        end = segments[0].end
+        index = 0
 
-    for idx, s in enumerate(segments):
-        if s.start <= end:
-            del segments[idx]
 
-    return points, optimal_points(segments)
+        for idx, s in enumerate(segments):
+            if s.end <= end:
+                end = s.end
+                index = idx
+        points.append(end)
+        del segments[index]
+
+        index_delete = []
+        for idx, s in enumerate(segments):
+            if s.start <= end:
+                index_delete.append(idx)
+
+        for i in sorted(index_delete, reverse=True):
+            del segments[i]
+
+
+    return points
 
 if __name__ == '__main__':
     input = sys.stdin.read()
@@ -33,3 +41,4 @@ if __name__ == '__main__':
     points = optimal_points(segments)
     print(len(points))
     print(*points)
+

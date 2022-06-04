@@ -17,10 +17,13 @@ def get_optimal_value(capacity, weights, values):
         max_index = value_per_unit.index(max_value)
         amount = min(capacity, weights[max_index])
         value += amount * max_value
+        capacity -= amount
         del value_per_unit[max_index], weights[max_index], values[max_index]
 
-        if not values or capacity == 0:
+        if not values:
             return value
+
+    return value
 
 
 
@@ -31,3 +34,6 @@ if __name__ == "__main__":
     weights = data[3:(2 * n + 2):2]
     opt_value = get_optimal_value(capacity, weights, values)
     print("{:.10f}".format(opt_value))
+
+
+
