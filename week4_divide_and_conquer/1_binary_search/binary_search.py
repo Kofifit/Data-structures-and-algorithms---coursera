@@ -11,7 +11,6 @@ def binary_search(keys, query):
             high = mid - 1
     return -1
 
-
 if __name__ == '__main__':
     num_keys = int(input())
     input_keys = list(map(int, input().split()))
